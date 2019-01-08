@@ -1,0 +1,22 @@
+@xs: 768px;
+@sm: 992px;
+@md: 1200px;
+@lg: 1366px;
+@xl: 1600px;
+@xxl: 1601px;
+
+.media-min(@min, @rules) {
+  @media screen and (min-width: @min) {
+    @rules();
+  }
+}
+.media-between(@min, @max, @rules) {
+  @media screen and (min-width: @min) and (max-width: @max) {
+    @rules();
+  }
+}
+.media-max(@max, @rules) {
+  @media screen and (max-width: @max) {
+    @rules();
+  }
+}

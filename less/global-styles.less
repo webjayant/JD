@@ -1,0 +1,163 @@
+/* Global Styles */
+@import "mixin.less";
+@import url("https://fonts.googleapis.com/css?family=Montserrat");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: Montserrat, sans-serif;
+}
+body {
+  overflow-x: hidden;
+}
+html {
+  font-size: calc(15px + (22 - 15) * ((100vw - 320px) / (1920 - 320)));
+}
+button.jd-btn {
+  background: #555;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  padding: 0.5rem;
+  margin: 10px 0;
+  &:hover,
+  &:focus {
+    background: #fff;
+    color: #555;
+  }
+}
+.jd-card {
+  min-height: 300px;
+  padding: 50px 30px;
+  p {
+    font-size: 14px;
+    color: rgb(153, 153, 153);
+    line-height: 22px;
+  }
+  h2 {
+    color: #000;
+    font-size: 20px;
+    margin: 20px 0;
+  }
+}
+.jd-container {
+  margin: 0 auto;
+
+  .media-max(@xs, {width: 99vw; max-width: 600px;});
+
+  .media-between(@xs, @sm, {width: 600px;});
+
+  .media-between(@sm, @md, {width: 900px;});
+
+  .media-between(@md, @lg, {width: 1170px;});
+
+  .media-between(@lg, @xl, {width: 1366px;});
+
+  .media-min(@xxl, {width: 1566px;});
+}
+.col-loop (@i) when (@i > 0) {
+  .jd-col-@{i} {
+    padding: 0 10px;
+    flex-grow: @i;
+    max-width: calc((100% / 12) * @i);
+    .media-max(@sm, {width: 100%; max-width: 100%});
+  }
+  .col-loop(@i - 1);
+}
+
+.col-offset-loop (@i) when (@i > 0) {
+  .jd-col-offset-@{i} {
+    margin-left: calc((100% / 12) * @i);
+    .media-max(@sm, {margin-left: 0});
+  }
+  .col-offset-loop(@i - 1);
+}
+header {
+  height: 5rem;
+  &.jd-dflex {
+    display: flex;
+    .brand-logo {
+      margin: auto 0;
+    }
+  }
+  &:not(.jd-dflex).brand-logo {
+    height: 50%;
+    max-height: 3rem;
+  }
+  .media-max(@xs, {padding: 0 1rem});
+}
+/* Global Ends Here */
+.jd-dflex {
+  display: flex;
+  .jd-dead-center {
+    margin: auto;
+  }
+}
+/* Display Classes */
+.jd-fcol {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  width: 100%;
+  .media-max(@sm, {flex-direction: column});
+  .col-loop(12);
+  .col-offset-loop(12);
+}
+.jd-input-labeled {
+  text-align: left;
+  position: relative;
+  label {
+    font-size: 12px;
+    margin: 0;
+  }
+  input {
+    &[type="number"]::-webkit-inner-spin-button,
+    &[type="number"]::-webkit-outer-spin-button {
+      -webkit-appearance: none;
+      margin: 0;
+    }
+    font-size: 18px;
+    &.jd-input {
+      width: 100%;
+      height: 42px;
+      border-radius: 8px;
+      margin: 0 0 10px 0;
+      border: 1px solid #ccc;
+      &.has-error {
+        border-color: #df3935;
+        background: lighten(#df3935, 40%);
+      }
+      & + span.jd-error-span {
+        display: inline-block;
+        height: 23px;
+        width: auto;
+        background: #df3935;
+        position: absolute;
+        margin: 0;
+        top: calc(50% + 6px);
+        right: 0;
+        transform: translateY(-50%);
+        color: #fff;
+        font-size: 16px;
+        line-height: 23px;
+        padding: 0 10px;
+        border-radius: 5px;
+        margin-right: 5px;
+      }
+    }
+  }
+}
+/* Helper Classes */
+
+.jd-text-center {
+  text-align: center;
+}
+img.jd-resp-img {
+  display: block;
+  max-width: 100%;
+  height: auto;
+}
+.jd-mt-40 {
+  margin-top: 40px;
+}
+/* Helper Classes Ends */
