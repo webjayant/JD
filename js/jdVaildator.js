@@ -10,11 +10,13 @@ function factory(global) {
     makeInputArray: function() {
       this.inputs.forEach(el => {
         let vType = el.getAttribute("data-vtype");
+        let vErrorText = el.getAttribute("data-verror");
         if (vType) {
           this.validationArray.push({
             name: el.name,
             type: el.type,
-            vType
+            vType,
+            vErrorText
           });
         }
       });
@@ -52,11 +54,11 @@ function factory(global) {
         switch (obj.type) {
           case "text":
             el = this.form.querySelectorAll(`[name=${obj.name}]`)[0];
-            this.validateTextInput(el, obj.vType);
+            this.validateTextInput(el, obj.vType, obj.vErrorText);
             break;
           case "email":
             el = this.form.querySelectorAll(`[name=${obj.name}]`)[0];
-            this.validateEmailInput(el, obj.vType);
+            this.validateEmailInput(el, obj.vType, obj.vErrorText);
             break;
           default:
             console.error("Feature still in Development");
@@ -64,11 +66,11 @@ function factory(global) {
         }
       });
     },
-    validateTextInput: function(el, vtype) {
+    validateTextInput: function(el, vtype, verror) {
       switch (vtype) {
         case "required":
           if (el.value === "" || el.value === undefined || el.value === null) {
-            this.displayError(el, "Required Text");
+            this.displayError(el, verror ? verror : "Required Text");
           } else {
             this.removeError(el);
           }
@@ -78,11 +80,11 @@ function factory(global) {
           break;
       }
     },
-    validateEmailInput: function(el, vtype) {
+    validateEmailInput: function(el, vtype, verror) {
       switch (vtype) {
         case "required":
           if (el.value === "" || el.value === undefined || el.value === null) {
-            this.displayError(el, "Required Email");
+            this.displayError(el, verror ? verror : "Required Email");
           } else {
             this.removeError(el);
           }
